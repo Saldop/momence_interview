@@ -8,4 +8,14 @@ export default defineConfig({
     react(),
     babel({ presets: [reactCompilerPreset()] })
   ],
+  server: {
+    proxy: {
+      '/api/cnb': {
+        target: 'https://www.cnb.cz',
+        changeOrigin: true,
+        rewrite: () =>
+          '/en/financial-markets/foreign-exchange-market/central-bank-exchange-rate-fixing/central-bank-exchange-rate-fixing/daily.txt',
+      },
+    },
+  },
 })
