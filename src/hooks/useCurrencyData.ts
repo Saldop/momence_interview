@@ -1,6 +1,7 @@
-import type { CurrencyRatesResponse } from "./types.ts";
+import { useQuery } from "@tanstack/react-query";
+import type { CurrencyRatesResponse } from "../types.ts";
 
-export const parseCurrencyRates = (
+const parseCurrencyRates = (
   currencyResponse: string,
 ): CurrencyRatesResponse => {
   const lines = currencyResponse
@@ -41,3 +42,19 @@ export const parseCurrencyRates = (
     rates,
   };
 };
+
+const fetchCurrencyRates = async (): Promise<CurrencyRatesResponse> => {
+  const response = await fetch("/api/cnb");
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch currency rates");
+  }
+
+  return parseCurrencyRates(await response.text());
+};
+
+export const useCurrencyData = () =>
+  useQuery<CurrencyRatesResponse>({
+    queryKey: ["currency-rates"],
+    queryFn: fetchCurrencyRates,
+  });

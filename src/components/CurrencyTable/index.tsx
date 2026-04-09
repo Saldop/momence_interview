@@ -1,4 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
 import {
   BodyRow,
   Cell,
@@ -13,25 +12,19 @@ import {
   Title,
   UpdatedAt,
 } from "./styles.ts";
-import type { CurrencyRatesResponse } from "./types.ts";
-import { parseCurrencyRates } from "./utils.ts";
+import type { CurrencyRatesResponse } from "../../types.ts";
 
-const fetchCurrencyRates = async (): Promise<CurrencyRatesResponse> => {
-  const response = await fetch("/api/cnb");
+interface CurrencyTableProps {
+  data?: CurrencyRatesResponse;
+  isLoading: boolean;
+  isError: boolean;
+}
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch currency rates");
-  }
-
-  return parseCurrencyRates(await response.text());
-};
-
-export const CurrencyTable = () => {
-  const { data, isLoading, isError } = useQuery<CurrencyRatesResponse>({
-    queryKey: ["currency-rates"],
-    queryFn: fetchCurrencyRates,
-  });
-
+export const CurrencyTable = ({
+  data,
+  isLoading,
+  isError,
+}: CurrencyTableProps) => {
   if (isLoading) {
     return <StateMessage>Loading exchange rates...</StateMessage>;
   }

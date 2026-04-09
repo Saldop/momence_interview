@@ -4,14 +4,16 @@ import viteLogo from "./assets/vite.svg";
 import heroImg from "./assets/hero.png";
 import "./App.css";
 import { CurrencyTable } from "./components/CurrencyTable";
+import { useCurrencyData } from "./hooks/useCurrencyData.ts";
 
 function App() {
   const [count, setCount] = useState(0);
+  const { data, isLoading, isError } = useCurrencyData();
 
   return (
     <>
       <section id="center">
-        <CurrencyTable />
+        <CurrencyTable data={data} isLoading={isLoading} isError={isError} />
         <div className="hero">
           <img src={heroImg} className="base" width="170" height="179" alt="" />
           <img src={reactLogo} className="framework" alt="React logo" />
