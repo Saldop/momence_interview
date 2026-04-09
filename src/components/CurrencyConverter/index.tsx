@@ -39,9 +39,9 @@ const getResultString = (
       : (parsedAmount / selectedRate.amount) * selectedRate.rate;
   const resultCurrencyCode =
     conversionDirection === "from-czk" ? selectedRate.code : "CZK";
-  return `${parsedAmount.toFixed(2)} ${
+  return `${parsedAmount.toLocaleString("cs-CZ", { maximumFractionDigits: 2 })} ${
     conversionDirection === "from-czk" ? "CZK" : selectedRate.code
-  } = ${convertedAmount.toFixed(2)} ${resultCurrencyCode}`;
+  } = ${convertedAmount.toLocaleString("cs-CZ", { maximumFractionDigits: 2 })} ${resultCurrencyCode}`;
 };
 
 export const CurrencyConverter = ({
