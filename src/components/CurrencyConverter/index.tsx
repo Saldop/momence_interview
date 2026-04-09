@@ -90,6 +90,11 @@ export const CurrencyConverter = ({
                 currentDirection === "from-czk" ? "to-czk" : "from-czk",
               )
             }
+            aria-label={`Switch input amount to ${
+              conversionDirection === "from-czk"
+                ? (selectedRate?.code ?? "selected currency")
+                : "CZK"
+            }`}
           >
             <FieldLabel as="span">{inputCurrencyLabel}</FieldLabel>
             <SwitchIcon>↔</SwitchIcon>
