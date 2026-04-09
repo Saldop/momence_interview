@@ -3,6 +3,7 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "./assets/vite.svg";
 import heroImg from "./assets/hero.png";
 import "./App.css";
+import { CurrencyConverter } from "./components/CurrencyConverter";
 import { CurrencyTable } from "./components/CurrencyTable";
 import { useCurrencyData } from "./hooks/useCurrencyData.ts";
 
@@ -13,6 +14,11 @@ function App() {
   return (
     <>
       <section id="center">
+        <CurrencyConverter
+          data={data}
+          isLoading={isLoading}
+          isError={isError}
+        />
         <CurrencyTable data={data} isLoading={isLoading} isError={isError} />
         <div className="hero">
           <img src={heroImg} className="base" width="170" height="179" alt="" />
